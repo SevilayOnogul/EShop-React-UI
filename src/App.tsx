@@ -1,10 +1,11 @@
 import './App.css'
+import RouterConfig from './config/RouterConfig'
 
 function App() {
 
   return (
     <>
-      Sevilay
+      <RouterConfig />
     </>
   )
 }
