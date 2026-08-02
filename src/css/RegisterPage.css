@@ -8,12 +8,13 @@
 
 }
 
-.main{
+.main {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
+
 .form-div {
     width: 400px;
     display: flex;
