@@ -9,8 +9,8 @@ function App() {
   return (
     <>
       <RouterConfig />
-      <ToastContainer autoClose={3000} style={{ fontSize: '13px' }} />
-      <Spinner/>
+      <ToastContainer autoClose={2000} style={{ fontSize: '13px' }} />
+      <Spinner />
     </>
   )
 }
