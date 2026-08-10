@@ -26,6 +26,9 @@ function ProductCard(props: ProductCardProps) {
           {description.substring(1,200)}...
         </Typography>
       </CardContent>
+      <div>
+        <h2 style={{fontFamily:'arial',background:'lightgray', padding:'10px', borderRadius:'5px'}}> {price} ₺</h2>
+      </div>
       <CardActions>
         <Button size="small" variant="outlined" color="info">
           Detay
