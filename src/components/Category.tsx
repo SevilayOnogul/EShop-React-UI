@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import categoryService from '../services/CategoryService';
-import { setLoading } from '../redux/appSlice';
+import { setLoading, setProducts } from '../redux/appSlice';
+import type { ProductType } from '../types/Types';
+import productService from '../services/ProductService';
+import { toast } from 'react-toastify';
 
 function Category() {
     const dispatch = useDispatch();
@@ -22,6 +25,26 @@ function Category() {
             dispatch(setLoading(false));
         }
     }
+    const handleCategory = async (e: React.ChangeEvent<HTMLInputElement>, categoryName: string) => {
+        try {
+            dispatch(setLoading(true));
+            if (e.target.checked) {
+                //kategoriye göre ürünleri getir
+                const products: ProductType[] = await categoryService.getProductsByCategoryName(categoryName);
+                dispatch(setProducts(products))
+            } else {
+                // ekranda bütün ürünleri listele
+                const products: ProductType[] = await productService.getAllProducts();
+                dispatch(setProducts(products));
+            }
+        } catch (error) {
+            toast.error('Kategoriler alınırken hata oluştu :' + error)
+        }
+        finally {
+            dispatch(setLoading(false))
+        }
+
+    }
 
     useEffect(() => {
         getAllCategories();
@@ -31,9 +54,17 @@ function Category() {
         <div style={{ marginTop: '60px', marginLeft: '25px' }}>
             <FormGroup>
                 {
-                    categories && categories.map((category: string,index:number) => (
-                        <FormControlLabel key={index} control={<Checkbox defaultChecked />} label={category} />
-
+                    categories && categories.map((category: string, index: number) => (
+                        <FormControlLabel
+                            key={index}
+                            control={
+                                <Checkbox
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCategory(e, category)}
+                                    sx={{ fontSize: '12px' }}
+                                />
+                            }
+                            label={category}
+                        />
                     ))
                 }
 
