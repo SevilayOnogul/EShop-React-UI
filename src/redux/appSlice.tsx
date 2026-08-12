@@ -5,14 +5,14 @@ import type { ProductType, UserType } from '../types/Types'
 export interface AppSliceType {
     currentUser: UserType | null,
     loading: boolean,
-    products:ProductType[]
+    products: ProductType[]
 
 }
 
 const initialState: AppSliceType = {
     currentUser: null,
     loading: false,
-    products:[]
+    products: []
 }
 
 const appSlice = createSlice({
@@ -22,15 +22,24 @@ const appSlice = createSlice({
         setLoading: (state: AppSliceType, action: PayloadAction<boolean>) => {
             state.loading = action.payload
         },
-        setCurrentUser:(state:AppSliceType,action:PayloadAction<UserType | null>)=>{
-            state.currentUser=action.payload
-    },
-    setProducts:(state:AppSliceType,action:PayloadAction<ProductType[]>)=>{
-        state.products=action.payload
+        setCurrentUser: (state: AppSliceType, action: PayloadAction<UserType | null>) => {
+            state.currentUser = action.payload
+        },
+        setProducts: (state: AppSliceType, action: PayloadAction<ProductType[]>) => {
+            state.products = action.payload
+        },
+        filterProducts: (state: AppSliceType, action: PayloadAction<string>) => {
+            const tempList: ProductType[] = [];
+            state.products.map((product: ProductType) => {
+                if (product.title.toLocaleLowerCase().includes(action.payload.toLocaleLowerCase())) {
+                    tempList.push(product);
+                }
+            })
+            state.products = [...tempList];
+        }
     }
-}
 })
 
 
-export const { setLoading,setCurrentUser,setProducts } = appSlice.actions
+export const { setLoading, setCurrentUser, setProducts, filterProducts } = appSlice.actions
 export default appSlice.reducer

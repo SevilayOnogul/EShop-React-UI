@@ -9,6 +9,18 @@
       "username": "sevilayonogul",
       "password": "2",
       "id": 2
+    },
+    {
+      "id": "12560005",
+      "username": "guest",
+      "password": "1",
+      "balance": 1000
+    },
+    {
+      "id": "80864748",
+      "username": "guest",
+      "password": "1",
+      "balance": 1000
     }
   ]
 }
