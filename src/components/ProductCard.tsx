@@ -4,7 +4,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography'; 
+import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {
   product: ProductType
@@ -13,24 +14,25 @@ interface ProductCardProps {
 function ProductCard(props: ProductCardProps) {
   const { id, title, price, description, category, image, rating } = props.product;
 
+  const navigate = useNavigate();
 
   return (
-    <Card sx={{cursor: 'pointer',boxShadow:'1px 5px 5px lightgrey', width: '330px',height:'600px', display: 'flex', flexDirection: 'column',alignItems: 'center', margin:'40px 10px'}}>
-      <img src={image} width={230} height={230} />
-      <CardContent sx={{height:'250px'}}>
+    <Card sx={{ cursor: 'pointer', boxShadow: '1px 5px 5px lightgrey', width: '330px', height: '650px', display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '40px 10px' }}>
+      <img src={image} width={230} height={210} />
+      <CardContent sx={{ height: '250px' }}>
 
         <Typography variant="h5" component="div">
-          {title.substring(1,70)}
+          {title.substring(1, 70)}
         </Typography>
         <Typography>
-          {description.substring(1,200)}...
+          {description.substring(1, 200)}...
         </Typography>
       </CardContent>
       <div>
-        <h2 style={{fontFamily:'arial',background:'lightgray', padding:'10px', borderRadius:'5px'}}> {price} ₺</h2>
+        <h2 style={{ fontFamily: 'arial', background: 'lightgray', padding: '10px', borderRadius: '5px' }}> {price} ₺</h2>
       </div>
       <CardActions>
-        <Button size="small" variant="outlined" color="info">
+        <Button onClick={() => navigate("/product-detail/" + id)} size="small" variant="outlined" color="info">
           Detay
         </Button>
       </CardActions>
