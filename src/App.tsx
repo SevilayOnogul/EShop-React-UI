@@ -11,6 +11,8 @@ import ProductService from './services/ProductService';
 import { setCurrentUser, setProducts } from './redux/appSlice';
 import { useEffect } from 'react';
 import { setBasket } from './redux/basketSlice';
+import BasketDetail from './components/BasketDetails';
+import BasketDetails from './components/BasketDetails';
 
 function App() {
 
@@ -45,6 +47,7 @@ function App() {
       <RouterConfig />
       <ToastContainer autoClose={2000} style={{ fontSize: '13px' }} />
       <Spinner />
+      <BasketDetails/>
     </>
   )
 }

@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MagaraIcon from '../images/magara.png';
 import { useNavigate } from 'react-router-dom';
-import { filterProducts, setCurrentUser, setProducts } from '../redux/appSlice';
+import { filterProducts, setCurrentUser, setDrawer, setProducts } from '../redux/appSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import productService from '../services/ProductService';
@@ -20,7 +20,7 @@ import type { RootState } from '../redux/store';
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {basket}=useSelector((state:RootState)=>state.basket)
+  const { basket } = useSelector((state: RootState) => state.basket)
   const logout = () => {
     localStorage.removeItem('currentUser');
     dispatch(setCurrentUser(null));
@@ -41,6 +41,11 @@ export default function Navbar() {
       toast.error("Filtreleme yaparken hata oluştu : " + error)
     }
   }
+
+  const openDrawer = () => {
+    dispatch(setDrawer(true))
+  }
+
   return (
     <AppBar position="static" sx={{ backgroundColor: '#454242' }}>
       <Toolbar>
@@ -84,8 +89,9 @@ export default function Navbar() {
             },
           }}
         />
-        <Badge badgeContent={basket.length} color='warning'sx={{margin:'0px 10px'}}>
-          <FaShoppingBasket style={{ fontSize: '18px', margin: '0px 10px', cursor: 'pointer' }} />
+
+        <Badge  badgeContent={basket.length} color='warning' sx={{ margin: '0px 10px' ,cursor:'pointer'}}>
+          <FaShoppingBasket onClick={openDrawer} style={{ fontSize: '18px', cursor: 'pointer' }} />
 
         </Badge>
         <Button onClick={logout} sx={{ textTransform: 'none', color: 'lightgrey' }} color="inherit">Çıkış Yap</Button>
