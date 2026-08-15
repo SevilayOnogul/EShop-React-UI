@@ -5,20 +5,20 @@ import { number } from 'yup'
 
 export interface BasketSliceType {
     basket: ProductType[],
-    totalAmount:number
+    totalAmount: number
 }
 
 const initialState: BasketSliceType = {
     basket: [],
-    totalAmount:0
+    totalAmount: 0
 }
 
 const basketSlice = createSlice({
     name: "basket",
     initialState,
     reducers: {
-        setBasket:(state:BasketSliceType,action:PayloadAction<ProductType[]>)=>{
-            state.basket=[...action.payload];
+        setBasket: (state: BasketSliceType, action: PayloadAction<ProductType[]>) => {
+            state.basket = [...action.payload];
         },
         addProductToBasket: (state: BasketSliceType, action: PayloadAction<ProductType>) => {
             if (state.basket.length == 0) {
@@ -39,17 +39,21 @@ const basketSlice = createSlice({
 
         },
 
-        calculateBasket:(state:BasketSliceType)=>{
-            let totalAmount:number=0;
-            state.basket && state.basket.map((product:ProductType)=>{
-                if(product.count){
-                    totalAmount+= product.price * product.count
+        calculateBasket: (state: BasketSliceType) => {
+            let totalAmount: number = 0;
+            state.basket && state.basket.map((product: ProductType) => {
+                if (product.count) {
+                    totalAmount += product.price * product.count
                 }
             })
-            state.totalAmount=totalAmount;
+            state.totalAmount = totalAmount;
+        },
+        removeProductFromBasket: (state: BasketSliceType, action: PayloadAction<number>) => {
+            state.basket = [...state.basket.filter((product: ProductType) => product.id !== action.payload)];
+            localStorage.setItem("basket", JSON.stringify(state.basket))
         }
     }
 })
 
-export const {setBasket, addProductToBasket,calculateBasket } = basketSlice.actions
+export const { setBasket, addProductToBasket, calculateBasket, removeProductFromBasket } = basketSlice.actions
 export default basketSlice.reducer

@@ -60,7 +60,7 @@ export default function Navbar() {
           <img src={MagaraIcon} width={60} height={60} />
         </IconButton>
         <Typography onClick={() => navigate('/')} variant="h6" component="div" sx={{ flexGrow: 1, cursor: 'pointer' }}>
-          News mağara
+          NovaShop
         </Typography>
 
         <TextField
@@ -90,7 +90,7 @@ export default function Navbar() {
           }}
         />
 
-        <Badge  badgeContent={basket.length} color='warning' sx={{ margin: '0px 10px' ,cursor:'pointer'}}>
+        <Badge badgeContent={basket.length} color='warning' sx={{ margin: '0px 10px', cursor: 'pointer' }}>
           <FaShoppingBasket onClick={openDrawer} style={{ fontSize: '18px', cursor: 'pointer' }} />
 
         </Badge>

@@ -33,6 +33,14 @@ const appSlice = createSlice({
         setProducts: (state: AppSliceType, action: PayloadAction<ProductType[]>) => {
             state.products = action.payload
         },
+        updateBalance:(state:AppSliceType,action:PayloadAction<UserType>)=>{
+       const user:UserType={
+      ...action.payload
+       }
+       state.currentUser=user;
+       localStorage.setItem("currentUser",JSON.stringify(user));
+            
+        },
         filterProducts: (state: AppSliceType, action: PayloadAction<string>) => {
             const tempList: ProductType[] = [];
             state.products.map((product: ProductType) => {
@@ -46,5 +54,5 @@ const appSlice = createSlice({
 })
 
 
-export const { setDrawer,setLoading, setCurrentUser, setProducts, filterProducts } = appSlice.actions
+export const { setDrawer,setLoading, setCurrentUser, setProducts, filterProducts,updateBalance } = appSlice.actions
 export default appSlice.reducer
